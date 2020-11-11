@@ -1,0 +1,5 @@
+export default {
+    SET_SEARCH_PARAM: 'SearchParam/SET_SEARCH_PARAM',
+    UPDATE_LOADING: 'SearchParam/UPDATE_LOADING',
+    UPDATE_INPUT_EMPTY: 'SearchParam/UPDATE_INPUT_EMPTY'
+}

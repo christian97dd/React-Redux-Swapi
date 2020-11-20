@@ -2,28 +2,23 @@ import types from './types';
 
 const initialState = {
     isLoading: false,
-    isInputEmpty: true,
-    results: []
+    people: {},
 };
 
 export default function searchParam(state = initialState, action) {
     switch(action.type) {
-        case (types.UPDATE_LOADING):
+        case (types.SET_LOADING):
             return {
                 ...state,
-                isLoading: action.payload
-            };
-        case (types.SET_SEARCH_PARAM):
-            return {
-                ...state,
-                results: action.results,
-                isLoading: action.payload
-            };
-        case (types.UPDATE_INPUT_EMPTY):
-            return {
-                ...state,
-                isInputEmpty: action.payload
+                isLoading: action.isLoading,
             }
+        case (types.GET_PEOPLE):
+            console.log(action.type, action.payload);
+            return {
+                ...state,
+                people: action.payload,
+                isLoading: true
+            };
         default:
             return state;
     }

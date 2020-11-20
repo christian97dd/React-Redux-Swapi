@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from './styled';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchPeople } from 'js/redux/SearchParam/api.js'
 
-const Header = () => {
+const Header = ({ fetchPeople, personName, isLoading }) => {
+    useEffect(() => {
+        fetchPeople();
+    }, []);
+
     return (
         <styled.HeaderWrapper>
             <styled.TopSideBar>
@@ -12,7 +19,8 @@ const Header = () => {
                     <styled.NavLinks href="#">Media</styled.NavLinks>
                 </styled.Nav>
                 <styled.Login>
-                    Log In
+                    {isLoading && <>Loading</>}
+                    {personName}
                     <styled.LogIcon name="user" />
                 </styled.Login>
             </styled.TopSideBar>
@@ -20,4 +28,16 @@ const Header = () => {
     );
 };
 
-export default Header;
+const mapStateToProps = state => {
+    return {
+        personName: state.SearchParam.people.name,
+        isLoading: state.SearchParam.isLoading,
+    };
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    fetchPeople,
+}, dispatch);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
